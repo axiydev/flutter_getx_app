@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter_getx_app/data/model/quote_model.dart';
 import 'package:flutter_getx_app/data/model/quote_wrapper.dart';
 
 class QuoteApi {
@@ -30,6 +31,24 @@ class QuoteApi {
       log(e.toString());
     }
     return QuoteWrapper.fromJson({});
+  }
+
+  Future<Quote> getSingleQuote({required int id}) async {
+    late final Response<Map<String, dynamic>> quoteResponse;
+
+    try {
+      quoteResponse =
+          await dio!.getUri<Map<String, dynamic>>(Uri.tryParse('/quotes/$id')!);
+
+      if (quoteResponse.statusCode == 200) {
+        return Quote.fromJson(quoteResponse.data!);
+      }
+    } on DioError {
+      log('DIO ERROR');
+    } catch (e) {
+      log(e.toString());
+    }
+    return Quote.fromJson({});
   }
 }
 

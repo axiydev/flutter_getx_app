@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_app/page/quote/quote_binding.dart';
+import 'package:flutter_getx_app/service/prefs.dart';
 import 'package:flutter_getx_app/utils/app_names.dart';
 import 'package:flutter_getx_app/utils/app_pages.dart';
 import 'package:flutter_getx_app/utils/localization/app_localiztion.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 /*
 Created by Axmadjon Isaqov on 11:50:43 12.11.2022
 © 2022 @axi_dev 
 */
+
 /*
 Theme:::Getx example
 */
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  await initServices();
   runApp(const MyApp());
+}
+
+Future<void> initServices() async {
+  try {
+    Get.put(GetPrefs.init());
+  } catch (e) {
+    debugPrint(e.toString());
+  }
 }
 
 class MyApp extends StatelessWidget {

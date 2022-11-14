@@ -13,15 +13,7 @@ class OtherView extends GetView<OtherController> {
       appBar: AppBar(
         title: Text('hi'.tr),
         actions: [
-          IconButton(
-              onPressed: () {
-                if (Get.locale == const Locale('uz', 'UZ')) {
-                  Get.updateLocale(const Locale('en', 'GB'));
-                } else {
-                  Get.updateLocale(const Locale('uz', 'UZ'));
-                }
-              },
-              icon: const Icon(Icons.local_activity))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.local_activity))
         ],
       ),
       body: SafeArea(
